@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -10,13 +10,16 @@ import {
   Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import QRCode from "react-native-qrcode-svg";
 
 import goBackIcon from "../../assets/icons/go-back.png";
 import downIcon from "../../assets/icons/down.png";
 import searchIcon from "../../assets/icons/search.png";
 import qrIcon from "../../assets/icons/qr.png";
+import { UserContext } from "../../context/UserContext";
 
 const AddFriend = () => {
+  const { user } = useContext(UserContext);
   const [countryCode, setCountryCode] = useState("+84");
   const [phoneNumber, setPhoneNumber] = useState("");
   const navigation = useNavigation();
@@ -44,7 +47,7 @@ const AddFriend = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, backgroundColor: "#fff" }}>
+      <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 40 }}>
         {/* Header Add friend Screen */}
         <View
           style={{
@@ -60,16 +63,14 @@ const AddFriend = () => {
         </View>
 
         {/* Mã QR của tài khoản */}
-        <View
-          style={{
-            width: 200,
-            height: 200,
-            backgroundColor: "black",
-            margin: 30,
-            alignSelf: "center",
-            borderRadius: 10,
-          }}
-        ></View>
+        <View style={{ alignItems: "center", marginVertical: 30 }}>
+          <Text style={{ fontSize: 18, marginBottom: 10 }}>Mã QR của bạn</Text>
+          {user?.id ? (
+            <QRCode value={user.phone.toString()} size={200} />
+          ) : (
+            <Text style={{ color: "gray" }}>Không tìm thấy mã QR</Text>
+          )}
+        </View>
 
         {/* Tìm kiếm số điện thoại => Tìm xong chuyển sang Profile */}
         <View
@@ -78,7 +79,7 @@ const AddFriend = () => {
             alignItems: "center",
             marginHorizontal: 30,
             height: 50,
-            borderWidth: 1.5,
+            borderWidth: 1,
             borderRadius: 10,
             borderColor: "gray",
           }}
@@ -86,7 +87,7 @@ const AddFriend = () => {
           <TouchableOpacity
             style={{
               backgroundColor: "#ddd",
-              height: 47,
+              height: 48,
               width: 70,
               justifyContent: "center",
               flexDirection: "row",
@@ -133,7 +134,7 @@ const AddFriend = () => {
             marginHorizontal: 30,
             marginVertical: 10,
             paddingHorizontal: 10,
-            borderWidth: 1.5,
+            borderWidth: 1,
             height: 50,
             flexDirection: "row",
             alignItems: "center",

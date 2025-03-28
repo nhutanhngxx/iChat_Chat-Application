@@ -7,25 +7,8 @@ import MessageTab from "../screens/MessagesTab";
 import ContactTab from "../screens/ContactTab";
 import TimelineTab from "../screens/TimelineTab";
 import MeTab from "../screens/MeTab";
-// import Chatting from "../components/messages/Chatting";
-// import Option from "../components/messages/Options";
-// import MediaStorage from "../components/messages/MediaStorage";
-// import SearchScreen from "../components/search/SearchScreen";
-// import ViewProfile from "../components/profile/ViewProfile";
-// import ViewImageChat from "../components/view/ViewImageChat";
-// import AddFriend from "../components/contact/AddFriend";
-// import FriendRequest from "../components/contact/FriendRequest";
-// import ProfileInformation from "../components/profile/ProfileInformation";
-// import ChangeInformation from "../components/profile/ChangeInformation";
-// import HeaderMessageTab from "../components/header/HeaderMessagesTab";
-// import ViewImagePost from "../components/view/ViewImagePost";
 
 const Tab = createBottomTabNavigator();
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
-
-// import HomeScreen from "../components/HomeScreen";
-// import ProfileScreen from "../components/ProfileScreen";
 
 function MyTabBar({ state, descriptors, navigation }) {
   const { buildHref } = useLinkBuilder();
@@ -41,7 +24,6 @@ function MyTabBar({ state, descriptors, navigation }) {
       style={{
         flexDirection: "row",
         height: 80,
-        borderTopWidth: 1,
         borderColor: "#ddd",
         backgroundColor: "white",
         paddingBottom: 10,
@@ -118,7 +100,6 @@ function MyTabs({ setUser }) {
     >
       <Tab.Screen
         name="Messages"
-        // component={MessageTab}
         children={(props) => <MessageTab {...props} setUser={setUser} />}
         options={{
           headerShown: false,
@@ -129,7 +110,6 @@ function MyTabs({ setUser }) {
       />
       <Tab.Screen
         name="Contact"
-        // component={ContactTab}
         children={(props) => <ContactTab {...props} setUser={setUser} />}
         options={{
           headerShown: false,
@@ -140,7 +120,6 @@ function MyTabs({ setUser }) {
       />
       <Tab.Screen
         name="Timeline"
-        // component={TimelineTab}
         children={(props) => <TimelineTab {...props} setUser={setUser} />}
         options={{
           headerShown: false,
@@ -151,7 +130,6 @@ function MyTabs({ setUser }) {
       />
       <Tab.Screen
         name="Me"
-        // component={MeTab}
         children={(props) => <MeTab {...props} setUser={setUser} />}
         options={{
           headerShown: false,

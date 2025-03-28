@@ -11,10 +11,29 @@ import {
 
 import HeaderPersonalProfile from "../components/header/HeaderPersonalProfile";
 import { UserContext } from "../context/UserContext";
+import * as ImageManipulator from "expo-image-manipulator"; // Thư viện nén ảnh
 
 const MeTab = () => {
   const { user } = useContext(UserContext);
   const userData = useMemo(() => user, [user]);
+  const [compressedAvatar, setCompressedAvatar] = useState(null);
+  useEffect(() => {
+    const compressImage = async () => {
+      if (userData?.avatar_path) {
+        try {
+          const manipulatedImage = await ImageManipulator.manipulateAsync(
+            userData.avatar_path,
+            [{ resize: { width: 200, height: 200 } }],
+            { compress: 0.9, format: ImageManipulator.SaveFormat.JPEG }
+          );
+          setCompressedAvatar(manipulatedImage.uri);
+        } catch (error) {
+          console.log("Lỗi nén ảnh:", error);
+        }
+      }
+    };
+    compressImage();
+  }, [userData]);
   return (
     <View style={styles.container}>
       <HeaderPersonalProfile />
@@ -22,16 +41,24 @@ const MeTab = () => {
 
       {/* Tài khoản */}
       <View style={styles.profileContainer}>
-        <Image
-          source={
-            userData?.avatar_path
-              ? { uri: userData.avatar_path }
-              : require("../assets/icons/cloud.png")
-          }
-          style={styles.avatar}
-        />
-        <Text style={styles.name}>{userData.full_name}</Text>
-        <Text style={styles.updateText}>Cập nhật tiểu sử</Text>
+        {userData ? (
+          <>
+            <TouchableOpacity>
+              <Image
+                source={
+                  compressedAvatar
+                    ? { uri: compressedAvatar }
+                    : require("../assets/icons/new-logo.png")
+                }
+                style={styles.avatar}
+              />
+            </TouchableOpacity>
+            <Text style={styles.name}>{userData.full_name}</Text>
+            <Text style={styles.updateText}>Cập nhật tiểu sử</Text>
+          </>
+        ) : (
+          <Text style={styles.name}>Người dùng chưa đăng nhập</Text>
+        )}
       </View>
 
       {/* Lọc nội dung đăng tải */}
@@ -55,7 +82,7 @@ const MeTab = () => {
             source={require("../assets/icons/heart.png")}
             style={styles.icon}
           />
-          <Text>Nhiều yêu thích</Text>
+          <Text>Yêu thích</Text>
         </TouchableOpacity>
       </View>
 
@@ -81,7 +108,6 @@ const MeTab = () => {
   );
 };
 
-// 📌 Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -89,14 +115,14 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   headerBackground: {
-    height: 80,
+    height: 200,
     width: "100%",
     backgroundColor: "rgba(217, 217, 217, 0.5)",
   },
   profileContainer: {
     alignItems: "center",
     gap: 10,
-    top: -50,
+    top: -100,
   },
   avatar: {
     width: 180,
@@ -111,7 +137,7 @@ const styles = StyleSheet.create({
     color: "blue",
   },
   filterContainer: {
-    top: -30,
+    top: -80,
     flexDirection: "row",
     justifyContent: "space-around",
   },
@@ -119,18 +145,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
-    padding: 5,
     backgroundColor: "rgba(217, 217, 217, 0.5)",
     borderRadius: 10,
     justifyContent: "center",
-    width: 110, // Sửa lỗi width
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   icon: {
     width: 30,
     height: 30,
   },
   postContainer: {
-    top: -10,
+    top: -50,
     flex: 1,
   },
   inputContainer: {

@@ -4,7 +4,7 @@
     "slug": "snack-a8e50932-4793-425a-859b-e124996f0590",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/cloud.png",
+    "icon": "./assets/icons/new-logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -19,7 +19,9 @@
       }
     },
     "android": {
-      "permissions": ["CAMERA"],
+      "permissions": [
+        "CAMERA"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/new-logo.png",
         "backgroundColor": "#ffffff"
@@ -40,6 +42,9 @@
     "host": "exp.host",
     "experimental": {
       "bridgeless": false
-    }
+    },
+    "plugins": [
+      "expo-barcode-scanner"
+    ]
   }
 }

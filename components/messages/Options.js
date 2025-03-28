@@ -12,6 +12,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../context/UserContext";
@@ -31,7 +32,7 @@ const Option = ({ route }) => {
       setIpAddress(ip);
     });
   }, []);
-  const API_iChat = "http://192.168.1.186:5001";
+  const API_iChat = "http://172.20.10.5:5001";
 
   useEffect(() => {
     console.log("avatar: ", avatar);
@@ -54,6 +55,7 @@ const Option = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar hidden={false} />
       <HeaderOption />
       <View style={styles.profileContainer}>
         <Image
@@ -208,6 +210,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    paddingTop: 30,
   },
   profileContainer: {
     alignItems: "center",

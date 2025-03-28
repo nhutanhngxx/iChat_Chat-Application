@@ -6,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView,
   Image,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -99,30 +98,30 @@ export default function CameraFunction() {
         setPhoto(undefined); // Xóa ảnh khỏi state sau khi lưu thành công.
       });
     };
-
     return (
-      <SafeAreaView style={styles.imageContainer}>
+      <View style={styles.imageContainer}>
+        <StatusBar style="light" />
         {/* Hiển thị ảnh vừa chụp */}
         <Image style={styles.preview} source={{ uri: photo.uri }} />
-
         {/* Container chứa các nút thao tác */}
         <View style={styles.btnContainer}>
           {/* Nếu người dùng đã cấp quyền truy cập thư viện, hiển thị nút lưu ảnh */}
           {mediaLibraryPermission ? (
             <TouchableOpacity style={styles.btn} onPress={savePhoto}>
               <Ionicons name="save-outline" size={30} color="black" />
+              <Text>Lưu ảnh vào máy</Text>
             </TouchableOpacity>
           ) : undefined}
-
           {/* Nút xóa ảnh (bấm vào sẽ hủy ảnh vừa chụp) */}
           <TouchableOpacity
             style={styles.btn}
             onPress={() => setPhoto(undefined)}
           >
             <Ionicons name="trash-outline" size={30} color="black" />
+            <Text>Xóa ảnh</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -154,6 +153,7 @@ export default function CameraFunction() {
     let uri = video.uri;
     navigation.navigate("Video", { uri });
   }
+
   // Thiết kế giao diện máy ảnh
   return (
     <View style={styles.container}>
@@ -170,13 +170,17 @@ export default function CameraFunction() {
         <TouchableOpacity
           style={{
             position: "absolute",
-            top: 40,
+            top: 50,
             left: 10,
             borderRadius: 50,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 10,
           }}
           onPress={() => navigation.goBack()}
         >
           <Ionicons name="arrow-back" size={25} color="white" />
+          <Text style={{ color: "white", fontSize: 18 }}>Quay lại</Text>
         </TouchableOpacity>
 
         {/* Thanh trượt để điều chỉnh mức zoom */}
@@ -290,16 +294,20 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    backgroundColor: "white",
+    marginBottom: 20,
+    paddingVertical: 5,
   },
   btn: {
     justifyContent: "center",
     margin: 10,
     elevation: 5,
+    alignItems: "center",
+    gap: 10,
   },
   imageContainer: {
     height: "95%",
     width: "100%",
+    flex: 1,
   },
   preview: {
     alignSelf: "stretch",

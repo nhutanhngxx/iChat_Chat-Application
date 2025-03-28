@@ -61,7 +61,7 @@ const groupService = {
   },
   getGroupMembers: async (groupId) => {
     try {
-      const members = await APIProvider.get(`/groups/${groupId}/members`);
+      const members = await api.get(`/groups/${groupId}/members`);
       return members.data.data;
     } catch (error) {
       console.log("Group Service Error: ", error);

@@ -12,18 +12,10 @@ import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../context/UserContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { NetworkInfo } from "react-native-network-info";
 
 const HeaderMessages = () => {
-  const [ipAddress, setIpAddress] = useState("");
-  useEffect(() => {
-    NetworkInfo.getIPAddress().then((ip) => {
-      setIpAddress(ip);
-    });
-  }, []);
   const { user, setUser } = useContext(UserContext);
-  // const API_iChat = `http://${window.location.hostname}:5001`;
-  const API_iChat = "http://192.168.1.186:5001";
+  const API_iChat = "http://172.20.10.5:5001";
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -31,11 +23,9 @@ const HeaderMessages = () => {
     try {
       // Gửi yêu cầu cập nhật trạng thái thành "Offline"
       await axios.post(`${API_iChat}/logout`, { userId: user.id });
-
       // Xóa thông tin người dùng trên máy
       await AsyncStorage.removeItem("token");
       await AsyncStorage.removeItem("user");
-
       // Cập nhật Context API
       setUser(null);
     } catch (error) {
@@ -76,6 +66,21 @@ const HeaderMessages = () => {
               <Text style={styles.optionText}>Thông tin tài khoản</Text>
             </TouchableOpacity>
 
+            {/* Tùy chọn: Cài đặt quyền riêng tư */}
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                setModalVisible(false);
+                navigation.navigate("ProfileInformation");
+              }}
+            >
+              <Image
+                source={require("../../assets/icons/setting.png")}
+                style={styles.optionIcon}
+              />
+              <Text style={styles.optionText}>Cài đặt & riêng tư</Text>
+            </TouchableOpacity>
+
             {/* Tùy chọn: Đăng xuất */}
             <TouchableOpacity style={styles.option} onPress={handleLogout}>
               <Image
@@ -107,9 +112,9 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
     height: 50,
     paddingRight: 10,
-    backgroundColor: "rgba(217, 217, 217, 0.5)",
     justifyContent: "flex-end",
   },
   icon: {

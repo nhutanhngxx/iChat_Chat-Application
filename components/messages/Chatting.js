@@ -48,7 +48,7 @@ const Chatting = ({ route }) => {
     });
   }, []);
 
-  const API_iChat = "http://192.168.1.186:5001";
+  const API_iChat = "http://172.20.10.5:5001";
 
   // Hàm lấy tên thành viên từ ID để hiển thị trên tin nhắn nhóm
   const getMemberName = useCallback(
@@ -278,7 +278,7 @@ const Chatting = ({ route }) => {
                 {/* Tên người gửi */}
                 {!isMyMessage && chat.chatType === "group" && (
                   <Text style={styles.replySender}>
-                    {getMemberName(item.sender_id)}:
+                    {getMemberName(item.sender_id)}
                   </Text>
                 )}
                 {/* Hiển thị tin nhắn Reply => Hiển thị tin nhắn gốc trước */}
@@ -486,11 +486,11 @@ const Chatting = ({ route }) => {
           </Pressable>
         </Modal>
 
-        {/* Hiển thị tin nhắn gốc khi đang trả lời */}
+        {/* Hiển thị tin nhắn gốc khi ĐANG TRẢ LỜI */}
         {replyMessage && (
           <View style={styles.replyPreview}>
             <Text style={styles.replyPreviewText}>
-              Đang trả lời: {replyMessage.content}
+              Đang trả lời tin nhắn của {}: {replyMessage.content}
             </Text>
             <TouchableOpacity onPress={() => setReplyMessage(null)}>
               <Text style={styles.cancelReply}>Hủy</Text>
@@ -586,16 +586,19 @@ const styles = StyleSheet.create({
   },
   replyContainer: {
     backgroundColor: "#f0f0f0",
-    padding: 10,
-    borderLeftWidth: 4,
+    borderLeftWidth: 2,
     borderLeftColor: "#007AFF",
     marginBottom: 5,
-    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginVertical: 5,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
   },
   replySender: {
-    fontWeight: "bold",
-    fontSize: 12,
-    color: "#007AFF",
+    fontSize: 16,
+    paddingBottom: 3,
+    color: "#F75E40",
   },
   replyText: {
     fontSize: 14,
@@ -610,9 +613,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#f0f0f0",
-    paddingVertical: 15,
-    borderRadius: 5,
-    marginBottom: 5,
+    paddingVertical: 20,
     paddingHorizontal: 10,
   },
   replyPreviewText: {

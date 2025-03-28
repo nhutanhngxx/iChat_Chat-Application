@@ -8,7 +8,7 @@ const ViewProfile = ({ route }) => {
   const navigation = useNavigation();
   const { name, avatar } = route.params || {};
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 50 }}>
       <HeaderViewProfile />
       <View
         style={{
@@ -26,18 +26,6 @@ const ViewProfile = ({ route }) => {
       </View>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text>Không có hoạt động nào. Bắt đầu một cuộc trò chuyện mới</Text>
-        {/* <TouchableOpacity
-          style={{
-            bottom: 10,
-            right: 20,
-            position: "absolute",
-          }}
-        >
-          <Image
-            source={require("../../assets/icons/chatting.png")}
-            style={{ width: 50, height: 50 }}
-          />
-        </TouchableOpacity> */}
       </View>
     </View>
   );

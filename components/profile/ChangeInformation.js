@@ -42,7 +42,7 @@ const ChangeInformation = () => {
   ];
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={{ flex: 1, backgroundColor: "#fff", paddingTop: 50 }}>
       <View
         style={{
           backgroundColor: "#fff",
@@ -137,6 +137,7 @@ const ChangeInformation = () => {
               <Modal transparent={true} animationType="fade">
                 <View style={styles.modalContainer}>
                   <View style={styles.pickerContainer}>
+                    <Text style={{ fontSize: 25 }}>Chọn ngày sinh của bạn</Text>
                     <DateTimePicker
                       value={dob}
                       mode="date"
@@ -150,13 +151,13 @@ const ChangeInformation = () => {
                         }
                       }}
                     />
-                    {/* Chỉ hiển thị nút "OK" trên iOS */}
+                    {/* Chỉ hiển thị nút "Lưu thay đổi" trên iOS */}
                     {Platform.OS === "ios" && (
                       <TouchableOpacity
                         onPress={() => setShowPicker(false)}
                         style={styles.okButton}
                       >
-                        <Text style={styles.doneText}>OK</Text>
+                        <Text style={styles.doneText}>Lưu thay đổi</Text>
                       </TouchableOpacity>
                     )}
                   </View>
@@ -253,18 +254,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
-    width: "80%",
+    width: "85%",
     alignItems: "center",
   },
   okButton: {
     marginTop: 10,
-    backgroundColor: "#3083F9",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
     borderRadius: 5,
   },
   doneText: {
-    color: "#fff",
+    color: "#3083F9",
     fontSize: 18,
     fontWeight: "bold",
   },

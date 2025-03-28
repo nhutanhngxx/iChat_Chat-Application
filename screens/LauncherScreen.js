@@ -12,18 +12,11 @@ import {
 import CustomButton from "../components/common/CustomButton";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import newLogo from "../assets/icons/new-logo.png";
+
 const { width, height } = Dimensions.get("window");
 
-console.log(Dimensions.get("window"));
-
 const LauncherScreen = ({ navigation }) => {
-  // useEffect(() => {
-  //   StatusBar.setHidden(true);
-  //   if (Platform.OS === "ios") {
-  //     StatusBar.setBarStyle("light-content");
-  //   }
-  // }, []);
-
   return (
     <View style={styles.container}>
       {/* Background hình ảnh */}
@@ -35,12 +28,7 @@ const LauncherScreen = ({ navigation }) => {
         <View style={styles.contentContainer}>
           {/* Logo + Tên Ứng Dụng */}
           <View style={styles.logoContainer}>
-            <Text style={styles.title}>iChat</Text>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={styles.logo}
-              resizeMode="contain"
-            />
+            <Image source={newLogo} style={styles.logo} resizeMode="contain" />
           </View>
 
           {/* Các Nút */}

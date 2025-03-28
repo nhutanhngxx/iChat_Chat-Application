@@ -35,7 +35,7 @@ import backIcon from "../assets/icons/go-back.png";
 import { UserContext } from "../context/UserContext";
 
 const MessagesTab = () => {
-  const API_iChat = "http://192.168.1.186:5001";
+  const API_iChat = "http://172.20.10.5:5001";
   const [index, setIndex] = useState(0);
   const { user } = useContext(UserContext);
   const [modalSort, setModalSort] = useState(false);
@@ -105,8 +105,7 @@ const MessagesTab = () => {
   };
 
   useEffect(() => {
-    let timeout;
-
+    // let timeout;
     const fetchMessageCards = async () => {
       try {
         const response = await fetch(`${API_iChat}/message-cards/${user?.id}`);
@@ -120,12 +119,10 @@ const MessagesTab = () => {
         timeout = setTimeout(fetchMessageCards, 500);
       }
     };
-
     if (user?.id) {
       fetchMessageCards();
     }
-
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
   }, [user?.id]);
 
   return (
